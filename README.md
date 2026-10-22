@@ -14,6 +14,9 @@ PlacePrep is a comprehensive, full-stack web application designed to help colleg
 *   **Interview Prep:** Study HR, Technical, and CS Fundamental questions.
 *   **Resource Hub:** Centralized collection of the best articles, videos, and learning materials.
 *   **Interactive Dashboard:** Track your solved problems, quiz history, and overall preparation progress.
+*   **📊 Placement Readiness KPIs (Experiment #8):** Real-time Business Intelligence KPIs including Placement Readiness Index (weighted composite score), Quiz Accuracy Rate with trend deltas, Weekly Velocity goals, and Peer Benchmark percentile.
+*   **📈 Interactive BI Analytics & Slicers (Experiment #3):** Dynamic multi-dimensional filtering across topics, difficulties, and timeframes with real-time Area charts (cutoff threshold), Category mastery bar charts, and Difficulty breakdown donut charts.
+*   **🎯 Recruitment & Preparation Funnel (Experiment #13):** Stage-by-stage pipeline conversion visualizer comparing candidate progression from registration to aptitude, technical DSA, and final campus placement offers with drop-off analytics and actionable recommendations.
 
 ### 👨‍💼 For Administrators
 *   **Role-Based Access Control:** Secure admin dashboard protected via JWT.

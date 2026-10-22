@@ -2,7 +2,8 @@ import { NavLink } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import {
   HiOutlineHome, HiOutlineLightBulb, HiOutlineCode, HiOutlineChatAlt2,
-  HiOutlineBookOpen, HiOutlineUser, HiOutlineLogout, HiOutlineViewGrid
+  HiOutlineBookOpen, HiOutlineUser, HiOutlineLogout, HiOutlineViewGrid,
+  HiOutlineChartBar
 } from 'react-icons/hi';
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -13,6 +14,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
   const studentLinks = [
     { to: '/dashboard', icon: <HiOutlineHome />, label: 'Dashboard' },
+    { to: '/analytics', icon: <HiOutlineChartBar />, label: 'BI Analytics' },
     { to: '/aptitude', icon: <HiOutlineLightBulb />, label: 'Aptitude' },
     { to: '/coding', icon: <HiOutlineCode />, label: 'Coding' },
     { to: '/interview', icon: <HiOutlineChatAlt2 />, label: 'Interview' },

@@ -7,8 +7,14 @@ import {
   HiOutlineCode,
   HiOutlineChatAlt2,
   HiOutlineBookOpen,
-  HiOutlineTrendingUp
+  HiOutlineTrendingUp,
+  HiOutlineSparkles,
+  HiOutlineChartBar
 } from 'react-icons/hi';
+
+import PlacementKpiCards from '../components/analytics/PlacementKpiCards';
+import InteractiveAnalyticsDashboard from '../components/analytics/InteractiveAnalyticsDashboard';
+import PlacementFunnelChart from '../components/analytics/PlacementFunnelChart';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -34,12 +40,22 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <div className="page-header">
-        <h1>Welcome back, {user?.name}! 👋</h1>
-        <p>Track your placement preparation progress</p>
+    <div className="dashboard-page">
+      {/* Top Welcome Header */}
+      <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
+        <div>
+          <h1>Welcome back, {user?.name}! 👋</h1>
+          <p>Placement preparation progress & Business Intelligence (BI) analytics</p>
+        </div>
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <span className="badge badge-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
+            <HiOutlineSparkles style={{ marginRight: '4px' }} />
+            Tier-1 Placement Mode Active
+          </span>
+        </div>
       </div>
 
+      {/* Overview Stat Cards */}
       <div className="stats-grid">
         <div className="stat-card">
           <div className="stat-icon" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#6366f1' }}>
@@ -75,66 +91,85 @@ const Dashboard = () => {
             <HiOutlineTrendingUp />
           </div>
           <div className="stat-value">{stats?.overallProgress || 0}%</div>
-          <div className="stat-label">Overall Progress</div>
+          <div className="stat-label">Overall Curriculum Progress</div>
           <div className="progress-bar" style={{ marginTop: '0.5rem' }}>
             <div className="progress-bar-fill" style={{ width: `${stats?.overallProgress || 0}%` }} />
           </div>
         </div>
       </div>
 
-      <h2 style={{ fontSize: '1.1rem', fontWeight: 600, marginBottom: '1rem' }}>Quick Actions</h2>
-      <div className="grid-3" style={{ marginBottom: '2rem' }}>
-        <Link to="/aptitude" className="card card-clickable" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div className="stat-icon" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#6366f1', margin: 0 }}>
-              <HiOutlineLightBulb />
+      {/* ========================================================
+          EXPERIMENT #8: Placement Readiness KPIs & Attainment
+          ======================================================== */}
+      <PlacementKpiCards kpis={stats?.kpis} />
+
+      {/* ========================================================
+          EXPERIMENT #3: Interactive Analytics Dashboard & Filters
+          ======================================================== */}
+      <InteractiveAnalyticsDashboard analytics={stats?.analytics} />
+
+      {/* ========================================================
+          EXPERIMENT #13: Recruitment & Preparation Funnel Analysis
+          ======================================================== */}
+      <PlacementFunnelChart funnel={stats?.funnel} />
+
+      {/* Quick Action Navigation */}
+      <div style={{ marginTop: '2.5rem', marginBottom: '1rem' }}>
+        <h2 style={{ fontSize: '1.15rem', fontWeight: 600, marginBottom: '1rem' }}>Preparation Modules</h2>
+        <div className="grid-3" style={{ marginBottom: '2rem' }}>
+          <Link to="/aptitude" className="card card-clickable" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div className="stat-icon" style={{ background: 'rgba(99, 102, 241, 0.15)', color: '#6366f1', margin: 0 }}>
+                <HiOutlineLightBulb />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Aptitude</h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Practice quantitative, logical & verbal</p>
+              </div>
             </div>
-            <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Aptitude</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Practice quantitative, logical & verbal</p>
+          </Link>
+          <Link to="/coding" className="card card-clickable" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div className="stat-icon" style={{ background: 'rgba(14, 165, 233, 0.15)', color: '#0ea5e9', margin: 0 }}>
+                <HiOutlineCode />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Coding</h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Solve DSA problems by topic</p>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Link to="/coding" className="card card-clickable" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div className="stat-icon" style={{ background: 'rgba(14, 165, 233, 0.15)', color: '#0ea5e9', margin: 0 }}>
-              <HiOutlineCode />
+          </Link>
+          <Link to="/interview" className="card card-clickable" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', margin: 0 }}>
+                <HiOutlineChatAlt2 />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Interview Prep</h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>HR, technical & CS fundamentals</p>
+              </div>
             </div>
-            <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Coding</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Solve DSA problems by topic</p>
+          </Link>
+          <Link to="/resources" className="card card-clickable" style={{ textDecoration: 'none' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div className="stat-icon" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', margin: 0 }}>
+                <HiOutlineBookOpen />
+              </div>
+              <div>
+                <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Resources</h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Articles, videos & learning material</p>
+              </div>
             </div>
-          </div>
-        </Link>
-        <Link to="/interview" className="card card-clickable" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div className="stat-icon" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#10b981', margin: 0 }}>
-              <HiOutlineChatAlt2 />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Interview Prep</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>HR, technical & CS fundamentals</p>
-            </div>
-          </div>
-        </Link>
-        <Link to="/resources" className="card card-clickable" style={{ textDecoration: 'none' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <div className="stat-icon" style={{ background: 'rgba(245, 158, 11, 0.15)', color: '#f59e0b', margin: 0 }}>
-              <HiOutlineBookOpen />
-            </div>
-            <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 600, marginBottom: '0.15rem' }}>Resources</h3>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>Articles, videos & learning material</p>
-            </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
       </div>
 
+      {/* Recent Attempts */}
       {stats?.recentAttempts?.length > 0 && (
-        <div>
+        <div style={{ marginBottom: '2rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2 style={{ fontSize: '1.1rem', fontWeight: 600 }}>Recent Quiz Attempts</h2>
-            <Link to="/aptitude/history" className="btn btn-sm btn-outline">View All</Link>
+            <h2 style={{ fontSize: '1.15rem', fontWeight: 600 }}>Recent Quiz Assessments</h2>
+            <Link to="/aptitude/history" className="btn btn-sm btn-outline">View Complete History</Link>
           </div>
           <div className="table-container">
             <table>

@@ -17,6 +17,7 @@ import InterviewList from './pages/InterviewList';
 import InterviewDetail from './pages/InterviewDetail';
 import Resources from './pages/Resources';
 import Profile from './pages/Profile';
+import Analytics from './pages/Analytics';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -45,6 +46,7 @@ function App() {
             <Route path="/interview" element={<InterviewList />} />
             <Route path="/interview/:id" element={<InterviewDetail />} />
             <Route path="/resources" element={<Resources />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
 
