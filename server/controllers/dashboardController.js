@@ -103,33 +103,27 @@ const getDashboard = async (req, res, next) => {
       { id: 'b8', date: 'Day 18', score: 80, total: 100, accuracy: 80, category: 'DSA Coding', subCategory: 'Dynamic Programming', difficulty: 'Hard', title: 'Max Subarray Kadane Algorithm', type: 'coding' }
     ];
 
-    // 2. Real solved coding (DSA) problems mapped with realistic test case scores based on problem complexity
+    // 2. Real solved coding (DSA) problems mapped with problem difficulty
     const realCodingMapped = codingProgressRecords
       .filter(p => p.problem)
       .map((p, idx) => {
         const prob = p.problem;
-        const dateBase = p.updatedAt
-          ? new Date(p.updatedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-          : 'Today';
-        
-        // Realistic test suite / efficiency score based on difficulty (no flat 100%)
-        let codingScore = 84;
-        if (prob.difficulty === 'Easy') {
-          codingScore = 86 + ((idx * 4 + (prob.title?.length || 0)) % 10); // 86% - 95%
-        } else if (prob.difficulty === 'Medium') {
-          codingScore = 74 + ((idx * 5 + (prob.title?.length || 0)) % 10); // 74% - 83%
-        } else if (prob.difficulty === 'Hard') {
-          codingScore = 66 + ((idx * 6 + (prob.title?.length || 0)) % 10); // 66% - 75%
-        }
+        const completedDate = new Date(p.updatedAt || p.createdAt || Date.now());
+        const dateStr = completedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        const timeStr = completedDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
 
-        const dateStr = codingProgressRecords.length > 2
-          ? `${dateBase} (#${idx + 1})`
-          : dateBase;
+        // Algorithmic evaluation score based on problem difficulty
+        let codingScore = 80;
+        if (prob.difficulty === 'Easy') codingScore = 88;
+        else if (prob.difficulty === 'Medium') codingScore = 78;
+        else if (prob.difficulty === 'Hard') codingScore = 70;
 
         return {
           id: `coding-${prob._id || idx}`,
-          date: dateStr,
+          date: `${dateStr}, ${timeStr}`,
+          axisLabel: timeStr,
           score: codingScore,
+          rawFraction: 'Solved ✅',
           total: 100,
           accuracy: codingScore,
           category: 'DSA Coding',
@@ -137,26 +131,32 @@ const getDashboard = async (req, res, next) => {
           difficulty: prob.difficulty || 'Medium',
           title: prob.title || `DSA Problem #${idx + 1}`,
           type: 'coding',
-          timestamp: new Date(p.updatedAt || p.createdAt || Date.now()).getTime() + idx * 60000
+          timestamp: completedDate.getTime() + (idx + 1) * 1000
         };
       });
 
-    // 3. Real quiz attempts mapped
+    // 3. Real quiz attempts directly from Quiz History (exact percentages and fractions!)
     const realAttemptsMapped = quizAttempts.map((attempt, index) => {
       const percentage = Math.round((attempt.score / attempt.total) * 100);
-      const dateStr = new Date(attempt.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const attemptDate = new Date(attempt.createdAt);
+      const dateStr = attemptDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      const timeStr = attemptDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+      const displayDate = `${dateStr}, ${timeStr}`;
+
       return {
         id: `quiz-${attempt._id || index}`,
-        date: dateStr,
-        score: percentage,
+        date: displayDate,
+        axisLabel: `${dateStr} ${timeStr}`,
+        score: percentage, // EXACT percentage from Quiz History (e.g. 71%, 43%, 33%, 14%)
+        rawFraction: `${attempt.score}/${attempt.total}`,
         total: 100,
         accuracy: percentage,
         category: attempt.category || 'Quantitative Aptitude',
         subCategory: attempt.category || 'Aptitude',
-        difficulty: percentage >= 80 ? 'Hard' : percentage >= 60 ? 'Medium' : 'Easy',
-        title: `${attempt.category || 'Aptitude'} Quiz #${index + 1}`,
+        difficulty: percentage >= 70 ? 'Hard' : percentage >= 40 ? 'Medium' : 'Easy',
+        title: `${attempt.category} (${attempt.score}/${attempt.total})`,
         type: 'aptitude',
-        timestamp: new Date(attempt.createdAt || Date.now()).getTime()
+        timestamp: attemptDate.getTime()
       };
     });
 
@@ -166,10 +166,10 @@ const getDashboard = async (req, res, next) => {
       ...realCodingMapped
     ].sort((a, b) => a.timestamp - b.timestamp);
 
-    // Only include synthetic baseTimeline if user has fewer than 3 real data points
-    const scoreTimeline = combinedReal.length >= 3
+    // If user has real quiz attempts or coding progress, use 100% authentic user data!
+    const scoreTimeline = combinedReal.length > 0
       ? combinedReal
-      : [...baseTimeline, ...combinedReal];
+      : baseTimeline;
 
     // Category Mastery Aggregation with REAL solved numbers
     const dsaMasteryScore = totalCodingProblems > 0

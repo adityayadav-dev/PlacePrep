@@ -35,8 +35,15 @@ const CustomTooltip = ({ active, payload, label }) => {
         <p className="tooltip-date">{data.date}</p>
         <div className="tooltip-metric">
           <span className="tooltip-dot" style={{ backgroundColor: payload[0].color || '#10b981' }}></span>
-          <span className="tooltip-label">{payload[0].name || 'Score'}:</span>
-          <span className="tooltip-val"><strong>{payload[0].value}%</strong></span>
+          <span className="tooltip-label">Score:</span>
+          <span className="tooltip-val">
+            <strong>{payload[0].value}%</strong>
+            {data.rawFraction && (
+              <span style={{ marginLeft: '6px', color: 'var(--text-muted)', fontSize: '0.75rem' }}>
+                ({data.rawFraction})
+              </span>
+            )}
+          </span>
         </div>
         {payload[1] && (
           <div className="tooltip-metric">
@@ -278,7 +285,19 @@ const InteractiveAnalyticsDashboard = ({ analytics }) => {
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#27272a" vertical={false} />
-                <XAxis dataKey="date" stroke="#71717a" fontSize={12} tickLine={false} />
+                <XAxis
+                  dataKey="date"
+                  stroke="#71717a"
+                  fontSize={11}
+                  tickLine={false}
+                  tickFormatter={(val) => {
+                    if (!val) return '';
+                    if (val.includes(',')) {
+                      return val.split(',')[1].trim();
+                    }
+                    return val;
+                  }}
+                />
                 <YAxis domain={[0, 100]} stroke="#71717a" fontSize={12} tickLine={false} unit="%" />
                 <Tooltip content={<CustomTooltip />} />
                 <ReferenceLine
@@ -335,7 +354,7 @@ const InteractiveAnalyticsDashboard = ({ analytics }) => {
                     {item.difficulty}
                   </span>
                   <span style={{ fontSize: '0.75rem', color: 'var(--primary-light)', fontWeight: 600 }}>
-                    {item.score}%
+                    {item.score}% {item.rawFraction ? `(${item.rawFraction})` : ''}
                   </span>
                   <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
                     ({item.date})
