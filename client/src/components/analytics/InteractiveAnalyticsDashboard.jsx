@@ -158,10 +158,6 @@ const InteractiveAnalyticsDashboard = ({ analytics }) => {
   return (
     <div className="bi-section">
       <div className="bi-section-header">
-        <div className="bi-badge-pill">
-          <HiOutlineSparkles className="bi-badge-icon" />
-          <span>Interactive Dashboard & Visualizations</span>
-        </div>
         <h2 className="bi-section-title">Interactive Placement Analytics & Performance Visualizer</h2>
         <p className="bi-section-subtitle">
           Slice, filter, and inspect preparation trends, category mastery, and difficulty distributions in real time

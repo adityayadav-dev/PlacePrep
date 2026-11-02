@@ -9,7 +9,6 @@ import {
 
 import PlacementKpiCards from '../components/analytics/PlacementKpiCards';
 import InteractiveAnalyticsDashboard from '../components/analytics/InteractiveAnalyticsDashboard';
-import PlacementFunnelChart from '../components/analytics/PlacementFunnelChart';
 
 const Analytics = () => {
   const [stats, setStats] = useState(null);
@@ -44,7 +43,7 @@ const Analytics = () => {
           </div>
           <h1>Placement Analytics & BI Lab Suite 📊</h1>
           <p>
-            Curated Business Intelligence reports covering Interactive Visualizations, Placement KPI Metrics, and Recruitment Pipeline Funnel Analysis
+            Curated Business Intelligence reports covering Interactive Visualizations and Placement KPI Metrics
           </p>
         </div>
       </div>
@@ -54,9 +53,6 @@ const Analytics = () => {
 
       {/* Experiment 3: Interactive Dashboard with Filters */}
       <InteractiveAnalyticsDashboard analytics={stats?.analytics} />
-
-      {/* Experiment 13: Pipeline Funnel */}
-      <PlacementFunnelChart funnel={stats?.funnel} />
     </div>
   );
 };

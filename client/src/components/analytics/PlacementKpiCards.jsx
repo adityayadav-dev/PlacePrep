@@ -30,10 +30,7 @@ const PlacementKpiCards = ({ kpis }) => {
   return (
     <div className="bi-section">
       <div className="bi-section-header">
-        <div className="bi-badge-pill">
-          <HiOutlineSparkles className="bi-badge-icon" />
-          <span>Placement KPIs & Metrics</span>
-        </div>
+
         <h2 className="bi-section-title">Placement Readiness KPIs & Benchmark Attainment</h2>
         <p className="bi-section-subtitle">
           Real-time performance indicators measuring student readiness for Tier-1 campus placement drives

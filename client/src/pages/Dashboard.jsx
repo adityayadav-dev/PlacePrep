@@ -14,7 +14,6 @@ import {
 
 import PlacementKpiCards from '../components/analytics/PlacementKpiCards';
 import InteractiveAnalyticsDashboard from '../components/analytics/InteractiveAnalyticsDashboard';
-import PlacementFunnelChart from '../components/analytics/PlacementFunnelChart';
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -108,10 +107,6 @@ const Dashboard = () => {
           ======================================================== */}
       <InteractiveAnalyticsDashboard analytics={stats?.analytics} />
 
-      {/* ========================================================
-          EXPERIMENT #13: Recruitment & Preparation Funnel Analysis
-          ======================================================== */}
-      <PlacementFunnelChart funnel={stats?.funnel} />
 
       {/* Quick Action Navigation */}
       <div style={{ marginTop: '2.5rem', marginBottom: '1rem' }}>
