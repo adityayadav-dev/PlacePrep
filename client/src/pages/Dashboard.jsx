@@ -11,8 +11,6 @@ import {
   HiOutlineSparkles,
   HiOutlineChartBar
 } from 'react-icons/hi';
-
-import PlacementKpiCards from '../components/analytics/PlacementKpiCards';
 import InteractiveAnalyticsDashboard from '../components/analytics/InteractiveAnalyticsDashboard';
 
 const Dashboard = () => {
@@ -97,10 +95,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* ========================================================
-          EXPERIMENT #8: Placement Readiness KPIs & Attainment
-          ======================================================== */}
-      <PlacementKpiCards kpis={stats?.kpis} />
 
       {/* ========================================================
           EXPERIMENT #3: Interactive Analytics Dashboard & Filters
