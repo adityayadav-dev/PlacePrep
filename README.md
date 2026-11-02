@@ -1,6 +1,5 @@
 # PlacePrep - Placement Preparation Portal 🎓
 
-![PlacePrep Banner](https://img.shields.io/badge/PlacePrep-Emerald_Theme-10b981?style=for-the-badge)
 
 PlacePrep is a comprehensive, full-stack web application designed to help college students streamline their campus placement preparation. It brings together Quantitative Aptitude, Data Structures & Algorithms (DSA), and Interview Resources into a single, unified platform with progress tracking.
 
