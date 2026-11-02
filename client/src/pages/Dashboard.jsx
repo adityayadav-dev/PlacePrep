@@ -44,12 +44,7 @@ const Dashboard = () => {
           <h1>Welcome back, {user?.name}! 👋</h1>
           <p>Placement preparation progress & Business Intelligence (BI) analytics</p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <span className="badge badge-primary" style={{ padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}>
-            <HiOutlineSparkles style={{ marginRight: '4px' }} />
-            Tier-1 Placement Mode Active
-          </span>
-        </div>
+    
       </div>
 
       {/* Overview Stat Cards */}
